@@ -18,6 +18,9 @@ export const Eye: React.FC<EyeProps> = ({ eyes, left, right }) => {
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: interpolate(eyes.value, [0, 1], [10, 0]) }],
     height: interpolate(eyes.value, [0, 1], [2, 20]),
+    //next lines are not really necessary, it's just for the eye shine
+    borderBottomWidth: interpolate(eyes.value, [0, 1], [0, 10]),
+    borderEndWidth: interpolate(eyes.value, [0, 1], [0, 6]),
   }))
   return (
     <Animated.View

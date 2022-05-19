@@ -9,17 +9,17 @@ export const styles = StyleSheet.create({
   },
   slimy: {
     height: 150,
-        width: 150,
-        position: 'absolute',
-        borderRadius: 10,
-        bottom: 80,
+    width: 150,
+    position: 'absolute',
+    borderRadius: 10,
+    bottom: 80,
   },
   eye: {
     position: 'absolute',
-  top: 50,
-  borderRadius: 10,
-  width: 20,
-  borderBottomWidth: 2,
-  borderEndWidth: 5,
-  height: 20},
+    top: 50,
+    borderRadius: 10,
+    width: 20,
+    borderBottomWidth: 2,
+    height: 20
+  },
 })
