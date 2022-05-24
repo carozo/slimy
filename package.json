@@ -21,6 +21,8 @@
     "react-native-redash": "^16.2.4",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.6.0",
+    "react-native-svg": "^12.3.0",
+    "react-native-svg-transformer": "^1.0.0",
     "react-redux": "^7.2.4",
     "redash": "^0.23.0"
   },

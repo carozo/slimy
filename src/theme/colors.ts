@@ -10,7 +10,7 @@ export interface Colors {
 }
 
 export const LightColors: Colors = {
-  primary: '#ff197b',
+  primary: '#ee1a64',
   white: '#fff',
   light: '#f2f2f2',
   black: '#20232a',

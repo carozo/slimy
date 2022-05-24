@@ -22,6 +22,10 @@ export const Home: React.FC<HomeProps> = ({ navigation }) => {
         title="Third challenge"
         onPress={() => navigation.navigate('ThirdChallenge')}
       />
+      <MenuItem
+        title="Fourth challenge"
+        onPress={() => navigation.navigate('FourthChallenge')}
+      />
     </ScrollView>
   )
 }
