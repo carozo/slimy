@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { FirstChallenge } from '../screens/FirstChallenge'
 
 import { Home } from '../screens/home'
+import { SecondChallenge } from '../screens/SecondChallenge'
 import useColors from '../theme/colors'
 
 const Stack = createNativeStackNavigator()
@@ -27,6 +28,7 @@ const AppNavigator: React.FC = () => {
       <Stack.Navigator>
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FirstChallenge" component={FirstChallenge} />
+        <Stack.Screen name="SecondChallenge" component={SecondChallenge} />
       </Stack.Navigator>
     </NavigationContainer>
   )
