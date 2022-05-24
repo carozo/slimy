@@ -6,22 +6,25 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import useColors from '../../theme/colors'
 import { Slimy } from './Slimy'
 import { styles } from './styles'
-import clamp from 'lodash'
+import { clamp } from 'react-native-redash'
+import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
 
 interface SecondChallengeProps {
   navigation: NavigationProp<any>
 }
 
 export const SecondChallenge: React.FC<SecondChallengeProps> = ({}) => {
-  const { width } = useWindowDimensions()
   const { colors } = useColors()
+  const { width } = useWindowDimensions()
+  const { LEFT_BOUND, LOWER_BOUND, RIGHT_BOUND, UPPER_BOUND, GROUND } =
+    useGeneralDimensions()
   const translation = useSharedValue<{ x: number; y: number }>({
     x: 0,
-    y: 0,
+    y: GROUND,
   })
   const startTranslation = useSharedValue<{ x: number; y: number }>({
     x: 0,
-    y: 0,
+    y: GROUND,
   })
   const eyes = useSharedValue(1)
   const tapGesture = Gesture.Tap().onStart(() => {
@@ -35,8 +38,16 @@ export const SecondChallenge: React.FC<SecondChallengeProps> = ({}) => {
     })
     .onUpdate(({ translationX, translationY }) => {
       translation.value = {
-        x: translationX + startTranslation.value.x,
-        y: translationY + startTranslation.value.y,
+        x: clamp(
+          translationX + startTranslation.value.x,
+          LEFT_BOUND,
+          RIGHT_BOUND,
+        ),
+        y: clamp(
+          translationY + startTranslation.value.y,
+          UPPER_BOUND,
+          LOWER_BOUND,
+        ),
       }
     })
     .onEnd(() => {
@@ -48,7 +59,7 @@ export const SecondChallenge: React.FC<SecondChallengeProps> = ({}) => {
     })
   const composedGesture = Gesture.Simultaneous(panGesture, tapGesture)
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={[styles.flexible, { backgroundColor: colors.white }]}>
       <GestureDetector gesture={composedGesture}>
         <Slimy eyes={eyes} translation={translation} />
       </GestureDetector>

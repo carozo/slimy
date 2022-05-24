@@ -18,7 +18,7 @@ export const FirstChallenge: React.FC<FirstChallengeProps> = ({}) => {
   }
   const eyes = useSharedValue(0)
   return (
-    <View style={{ flex: 1, backgroundColor: colors.white }}>
+    <View style={[styles.flexible, { backgroundColor: colors.white }]}>
       <Button title="Open eyes" onPress={onPress} />
       <Slimy eyes={eyes} />
       <View style={[styles.floor, { width, backgroundColor: colors.light }]} />

@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native'
+import {  SLIMY_SIDE } from '../../hooks/useGeneralDimensions'
 
 export const styles = StyleSheet.create({
+  flexible: {
+    flex: 1,
+  },
   floor: {
     position: 'absolute',
     height: 170,
@@ -8,8 +12,8 @@ export const styles = StyleSheet.create({
     zIndex: -1,
   },
   slimy: {
-    height: 150,
-    width: 150,
+    height: SLIMY_SIDE,
+    width: SLIMY_SIDE,
     position: 'absolute',
     borderRadius: 10,
     bottom: 80,

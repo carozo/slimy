@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
+  flexible: {
+    flex: 1,
+  },
   floor: {
     position: 'absolute',
     height: 170,
@@ -12,7 +15,6 @@ export const styles = StyleSheet.create({
     width: 150,
     position: 'absolute',
     borderRadius: 10,
-    bottom: 80,
   },
   eye: {
     position: 'absolute',
