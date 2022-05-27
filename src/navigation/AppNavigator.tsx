@@ -1,5 +1,6 @@
 import { NavigationContainer, Theme } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { FifthChallenge } from '../screens/FifthChallenge'
 import { FirstChallenge } from '../screens/FirstChallenge'
 import { FourthChallenge } from '../screens/FourthChallenge'
 
@@ -33,6 +34,7 @@ const AppNavigator: React.FC = () => {
         <Stack.Screen name="SecondChallenge" component={SecondChallenge} />
         <Stack.Screen name="ThirdChallenge" component={ThirdChallenge} />
         <Stack.Screen name="FourthChallenge" component={FourthChallenge} />
+        <Stack.Screen name="FifthChallenge" component={FifthChallenge} />
       </Stack.Navigator>
     </NavigationContainer>
   )
