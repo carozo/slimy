@@ -5,6 +5,7 @@ import {
   Easing,
   useAnimatedStyle,
   useSharedValue,
+  withSequence,
   withTiming,
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
@@ -31,9 +32,10 @@ export const ThirdChallenge: React.FC<ThirdChallengeProps> = ({}) => {
   })
   const eyes = useSharedValue(1)
   const tapGesture = Gesture.Tap().onStart(() => {
-    eyes.value = withTiming(0, { duration: 200 }, () => {
-      eyes.value = withTiming(1, { duration: 300 })
-    })
+    eyes.value = withSequence(
+      withTiming(0, { duration: 200 }),
+      withTiming(1, { duration: 300 }),
+    )
   })
   const panGesture = Gesture.Pan()
     .onStart(() => {

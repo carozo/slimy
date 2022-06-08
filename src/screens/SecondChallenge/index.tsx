@@ -1,7 +1,11 @@
 import { NavigationProp } from '@react-navigation/native'
 import React from 'react'
 import { useWindowDimensions, View } from 'react-native'
-import { useSharedValue, withTiming } from 'react-native-reanimated'
+import {
+  useSharedValue,
+  withSequence,
+  withTiming,
+} from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import useColors from '../../theme/colors'
 import { Slimy } from './Slimy'
@@ -27,9 +31,11 @@ export const SecondChallenge: React.FC<SecondChallengeProps> = ({}) => {
 
   const eyes = useSharedValue(1)
   const tapGesture = Gesture.Tap().onStart(() => {
-    eyes.value = withTiming(0, { duration: 200 }, () => {
-      eyes.value = withTiming(1, { duration: 300 })
-    })
+    eyes.value = withSequence(
+      withTiming(0, { duration: 200 }),
+      withTiming(1, { duration: 300 }),
+    )
+    // eyes.value = withTiming(0, { duration: 200 })
   })
   const panGesture = Gesture.Pan()
     .onStart(() => {

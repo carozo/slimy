@@ -6,6 +6,7 @@ import {
   interpolateColor,
   useAnimatedStyle,
   useSharedValue,
+  withSequence,
   withTiming,
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
@@ -37,9 +38,10 @@ export const FourthChallenge: React.FC<FourthChallengeProps> = ({}) => {
   const eyes = useSharedValue(1)
   const tapGesture = Gesture.Tap().onStart(() => {
     if (!xlimy.value) {
-      eyes.value = withTiming(0, { duration: 200 }, () => {
-        eyes.value = withTiming(1, { duration: 300 })
-      })
+      eyes.value = withSequence(
+        withTiming(0, { duration: 200 }),
+        withTiming(1, { duration: 300 }),
+      )
     }
   })
   const longPressGesture = Gesture.LongPress().onStart(() => {
