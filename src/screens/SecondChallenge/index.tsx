@@ -35,7 +35,6 @@ export const SecondChallenge: React.FC<SecondChallengeProps> = ({}) => {
       withTiming(0, { duration: 200 }),
       withTiming(1, { duration: 300 }),
     )
-    // eyes.value = withTiming(0, { duration: 200 })
   })
   const panGesture = Gesture.Pan()
     .onStart(() => {
