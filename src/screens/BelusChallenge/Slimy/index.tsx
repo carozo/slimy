@@ -16,13 +16,7 @@ interface SlimyProps {
   mouth: SharedValue<number>
 }
 
-export const Slimy: React.FC<SlimyProps> = ({
-  animatedStyle,
-  eyes,
-  xlimy,
-  mouth,
-}) => {
-  const { width } = useWindowDimensions()
+export const Slimy: React.FC<SlimyProps> = ({ animatedStyle, eyes, mouth }) => {
   const { colors } = useColors()
 
   return (
@@ -30,7 +24,6 @@ export const Slimy: React.FC<SlimyProps> = ({
       style={[
         styles.slimy,
         {
-          left: (width - 150) / 2,
           backgroundColor: colors.slimy,
         },
         animatedStyle,
@@ -45,7 +38,6 @@ export const Slimy: React.FC<SlimyProps> = ({
         }}>
         <Mouth mouth={mouth} />
       </View>
-      {/* <XL xlimy={xlimy} /> */}
     </Animated.View>
   )
 }

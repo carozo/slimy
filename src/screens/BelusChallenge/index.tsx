@@ -4,6 +4,8 @@ import { useWindowDimensions, View } from 'react-native'
 import Animated, {
   Easing,
   interpolateColor,
+  runOnJS,
+  useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
   withSequence,
@@ -25,18 +27,28 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
   const { width, height } = useWindowDimensions()
   const { LEFT_BOUND, LOWER_BOUND, RIGHT_BOUND, UPPER_BOUND, GROUND } =
     useGeneralDimensions()
-  const newX = useSharedValue<number>(0)
+  const newX = useSharedValue<number>((width - 150) / 2)
   const newY = useSharedValue<number>(GROUND)
   const xlimy = useSharedValue<number>(0)
-  const fruitPosition = useSharedValue<{ x: number; y: number }>({ x: 0, y: 0 })
+  const fruitScale = useSharedValue<number>(1)
+  const fruitPositionX = useSharedValue<number>(100)
+  const fruitPositionY = useSharedValue<number>(0)
   const startTranslation = useSharedValue<{
     x: number
     y: number
   }>({
-    x: 0,
+    x: (width - 150) / 2,
     y: GROUND,
   })
   const eyes = useSharedValue(1)
+  const mouth = useSharedValue(0)
+  // const isInDeleteZone = (actualYPosition: number) => {
+  //   'worklet'
+  //   return (
+  //     actualYPosition >= height - DELETE_ZONE_HEIGHT &&
+  //     actualYPosition <= height
+  //   )
+  // }
   const tapGesture = Gesture.Tap().onStart(() => {
     if (!xlimy.value) {
       eyes.value = withSequence(
@@ -57,8 +69,8 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
       Math.abs(translationY)
       newX.value = clamp(
         translationX + startTranslation.value.x,
-        LEFT_BOUND,
-        RIGHT_BOUND,
+        0,
+        width - 150,
       )
       newY.value = clamp(
         translationY + startTranslation.value.y,
@@ -93,30 +105,74 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
     ),
   }))
   const fruitStyle = useAnimatedStyle(() => ({
+    zIndex: 100,
     transform: [
-      { translateX: fruitPosition.value.x },
-      { translateY: withTiming(fruitPosition.value.y, { duration: 6000 }) },
+      //TODO: ver como hacer bien el scale
+      { scale: fruitScale.value },
+      { translateX: fruitPositionX.value },
+      { translateY: fruitPositionY.value },
     ],
-    backgroundColor: interpolateColor(
-      xlimy.value,
-      [0, 1],
-      [colors.slimy, colors.primary],
-    ),
+    backgroundColor: 'red',
     width: 50,
     height: 50,
   }))
   useEffect(() => {
-    fruitPosition.value = { ...fruitPosition.value, y: height }
+    fruitPositionY.value = withTiming(height, { duration: 6000 })
   })
+  useAnimatedReaction(
+    () => {
+      return fruitPositionY.value
+    },
+    () => {
+      if (
+        fruitPositionY.value > newY.value + 75 &&
+        fruitPositionX.value >= newX.value + 15 &&
+        fruitPositionX.value <= newX.value + 85
+      ) {
+        fruitScale.value = 0
+        mouth.value = withTiming(0)
+        fruitPositionY.value = 0
+        fruitPositionY.value = -50
+        fruitPositionX.value = Math.random() * (width - 150) + 75
+        fruitPositionY.value = withTiming(height, { duration: 6000 })
+        fruitScale.value = 1
+      }
+
+      if (
+        fruitPositionY.value > newY.value - 120 &&
+        fruitPositionY.value < newY.value &&
+        fruitPositionX.value > newX.value - 120 &&
+        fruitPositionX.value < newX.value + 120
+      ) {
+        mouth.value = withTiming(1)
+      } else if (fruitPositionY.value > newY.value + 30) {
+        mouth.value = withTiming(0)
+      }
+
+      if (fruitPositionY.value === height) {
+        fruitScale.value = 1
+        fruitPositionY.value = -50
+        fruitPositionY.value = withTiming(height, { duration: 6000 })
+        fruitPositionX.value = Math.random() * (width - 150) + 75
+      }
+    },
+    [fruitPositionY.value],
+  )
   return (
-    <View style={[styles.flexible, { backgroundColor: colors.white }]}>
+    <View
+      style={[
+        styles.flexible,
+        {
+          backgroundColor: colors.white,
+        },
+      ]}>
       <Animated.View style={fruitStyle} />
       <GestureDetector gesture={composedGesture}>
         <Slimy
           animatedStyle={animatedStyle}
           eyes={eyes}
           xlimy={xlimy}
-          mouth={eyes}
+          mouth={mouth}
         />
       </GestureDetector>
       <View style={[styles.floor, { width, backgroundColor: colors.light }]} />
