@@ -7,7 +7,6 @@ import { styles } from '../styles'
 import { Eye } from './Eye'
 import { Mouth } from './Mouth'
 // import Mouth from '../../../assets/mouth.svg'
-import { XL } from './XL'
 
 interface SlimyProps {
   eyes: SharedValue<number>

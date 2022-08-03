@@ -25,4 +25,22 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 2,
     height: 20
   },
+  text: {
+    textAlign: 'center',
+    paddingTop: 25,
+    fontSize: 60,
+    color: 'white',
+    paddingHorizontal: 30,
+    letterSpacing: 6,
+    fontWeight: '200',
+  },
+  text2: {
+    textAlign: 'center',
+    paddingTop: 25,
+    fontSize: 20,
+    color: 'white',
+    paddingHorizontal: 30,
+    letterSpacing: 6,
+    fontWeight: '200',
+  }
 })

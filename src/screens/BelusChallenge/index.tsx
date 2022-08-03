@@ -1,8 +1,9 @@
 import { NavigationProp } from '@react-navigation/native'
-import React, { useEffect } from 'react'
-import { useWindowDimensions, View } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { useWindowDimensions, View, Text } from 'react-native'
 import Animated, {
   Easing,
+  interpolate,
   interpolateColor,
   runOnJS,
   useAnimatedReaction,
@@ -15,20 +16,23 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import useColors from '../../theme/colors'
 import { Slimy } from './Slimy'
 import { styles } from './styles'
-import { clamp } from 'react-native-redash'
+import { clamp, mix, opacity } from 'react-native-redash'
 import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
+import ConfettiCannon from 'react-native-confetti-cannon'
 
 interface BelusChallengeProps {
   navigation: NavigationProp<any>
 }
 
 export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
+  const won = useSharedValue<number>(0)
+  const background = useSharedValue<number>(0)
   const { colors } = useColors()
   const { width, height } = useWindowDimensions()
-  const { LEFT_BOUND, LOWER_BOUND, RIGHT_BOUND, UPPER_BOUND, GROUND } =
-    useGeneralDimensions()
+  const { LOWER_BOUND, UPPER_BOUND, GROUND } = useGeneralDimensions()
   const newX = useSharedValue<number>((width - 150) / 2)
   const newY = useSharedValue<number>(GROUND)
+  const hunger = useSharedValue<number>(0)
   const xlimy = useSharedValue<number>(0)
   const fruitScale = useSharedValue<number>(1)
   const fruitPositionX = useSharedValue<number>(100)
@@ -42,13 +46,6 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
   })
   const eyes = useSharedValue(1)
   const mouth = useSharedValue(0)
-  // const isInDeleteZone = (actualYPosition: number) => {
-  //   'worklet'
-  //   return (
-  //     actualYPosition >= height - DELETE_ZONE_HEIGHT &&
-  //     actualYPosition <= height
-  //   )
-  // }
   const tapGesture = Gesture.Tap().onStart(() => {
     if (!xlimy.value) {
       eyes.value = withSequence(
@@ -104,6 +101,39 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
       [colors.slimy, colors.primary],
     ),
   }))
+  const barStyle = useAnimatedStyle(() => {
+    return {
+      width: `${interpolate(hunger.value, [0, 10], [7, 100])}%`,
+      backgroundColor: interpolateColor(
+        hunger.value,
+        [0, 10],
+        [colors.primary, colors.slimy],
+      ),
+    }
+  })
+  const bgStyle = useAnimatedStyle(() => {
+    return {
+      backgroundColor: won.value ? '#7c9c88' : 'white',
+    }
+  })
+  const textStyle = useAnimatedStyle(() => {
+    return { opacity: withTiming(won.value) }
+  })
+  const backgroundStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        {
+          scale: mix(background.value, 0, 2.5),
+        },
+      ],
+      borderRadius: 200,
+      // width: withTiming(mix(background.value, 0, height), { duration: 700 }),
+      // height: withTiming(mix(background.value, 0, height), { duration: 700 }),
+      width,
+      overflow: 'hidden',
+      height: width,
+    }
+  })
   const fruitStyle = useAnimatedStyle(() => ({
     zIndex: 100,
     transform: [
@@ -117,7 +147,7 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
     height: 50,
   }))
   useEffect(() => {
-    fruitPositionY.value = withTiming(height, { duration: 6000 })
+    fruitPositionY.value = withTiming(height, { duration: 4000 })
   })
   useAnimatedReaction(
     () => {
@@ -129,13 +159,24 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
         fruitPositionX.value >= newX.value + 15 &&
         fruitPositionX.value <= newX.value + 85
       ) {
+        //Eats the fruit
         fruitScale.value = 0
         mouth.value = withTiming(0)
         fruitPositionY.value = 0
         fruitPositionY.value = -50
-        fruitPositionX.value = Math.random() * (width - 150) + 75
-        fruitPositionY.value = withTiming(height, { duration: 6000 })
-        fruitScale.value = 1
+        hunger.value = withTiming(hunger.value + 1)
+        if (hunger.value < 9) {
+          fruitPositionX.value = Math.random() * (width - 150) + 75
+          fruitPositionY.value = withTiming(height, { duration: 2000 })
+          fruitScale.value = 1
+        } else {
+          //wins
+          mouth.value = withTiming(0)
+          background.value = withTiming(1, { duration: 2000 }, () => {
+            won.value = 1
+            background.value = withTiming(0)
+          })
+        }
       }
 
       if (
@@ -152,20 +193,23 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
       if (fruitPositionY.value === height) {
         fruitScale.value = 1
         fruitPositionY.value = -50
-        fruitPositionY.value = withTiming(height, { duration: 6000 })
+        fruitPositionY.value = withTiming(height, { duration: 4000 })
         fruitPositionX.value = Math.random() * (width - 150) + 75
       }
     },
     [fruitPositionY.value],
   )
   return (
-    <View
-      style={[
-        styles.flexible,
-        {
-          backgroundColor: colors.white,
-        },
-      ]}>
+    <Animated.View style={[styles.flexible, bgStyle]}>
+      <Animated.View
+        style={[
+          backgroundStyle,
+          {
+            backgroundColor: '#7c9c88',
+            zIndex: -1,
+            position: 'absolute',
+          },
+        ]}></Animated.View>
       <Animated.View style={fruitStyle} />
       <GestureDetector gesture={composedGesture}>
         <Slimy
@@ -176,6 +220,46 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
         />
       </GestureDetector>
       <View style={[styles.floor, { width, backgroundColor: colors.light }]} />
-    </View>
+      <Animated.View
+        style={{
+          backgroundColor: colors.light,
+          borderRadius: 10,
+          height: 20,
+          marginHorizontal: 60,
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          paddingHorizontal: 5,
+          zIndex: -1,
+        }}>
+        <Animated.View
+          style={[
+            barStyle,
+            {
+              height: 13,
+
+              borderRadius: 10,
+              shadowOpacity: 0.1,
+              shadowOffset: {
+                height: 1,
+                width: 0,
+              },
+            },
+          ]}>
+          <></>
+        </Animated.View>
+      </Animated.View>
+      <Animated.View
+        style={[
+          textStyle,
+          {
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: 60,
+          },
+        ]}>
+        <Text style={styles.text}>YOU WON!</Text>
+        <Text style={styles.text2}>CONGRATULATIONS</Text>
+      </Animated.View>
+    </Animated.View>
   )
 }
