@@ -26,6 +26,7 @@ export const styles = StyleSheet.create({
     height: 20
   },
   text: {
+    zIndex: -1,
     textAlign: 'center',
     paddingTop: 25,
     fontSize: 60,
@@ -35,6 +36,7 @@ export const styles = StyleSheet.create({
     fontWeight: '200',
   },
   text2: {
+    zIndex: -1,
     textAlign: 'center',
     paddingTop: 25,
     fontSize: 20,

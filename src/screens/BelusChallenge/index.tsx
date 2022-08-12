@@ -1,11 +1,10 @@
 import { NavigationProp } from '@react-navigation/native'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useWindowDimensions, View, Text } from 'react-native'
 import Animated, {
   Easing,
   interpolate,
   interpolateColor,
-  runOnJS,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
@@ -16,9 +15,9 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import useColors from '../../theme/colors'
 import { Slimy } from './Slimy'
 import { styles } from './styles'
-import { clamp, mix, opacity } from 'react-native-redash'
+import { clamp, mix } from 'react-native-redash'
 import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
-import ConfettiCannon from 'react-native-confetti-cannon'
+import { Lives } from './Lives'
 
 interface BelusChallengeProps {
   navigation: NavigationProp<any>
@@ -117,7 +116,7 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
     }
   })
   const textStyle = useAnimatedStyle(() => {
-    return { opacity: withTiming(won.value) }
+    return { opacity: withTiming(won.value, { duration: 2000 }) }
   })
   const backgroundStyle = useAnimatedStyle(() => {
     return {
@@ -126,7 +125,7 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
           scale: mix(background.value, 0, 2.5),
         },
       ],
-      borderRadius: 200,
+      borderRadius: 300,
       // width: withTiming(mix(background.value, 0, height), { duration: 700 }),
       // height: withTiming(mix(background.value, 0, height), { duration: 700 }),
       width,
@@ -236,7 +235,6 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
             barStyle,
             {
               height: 13,
-
               borderRadius: 10,
               shadowOpacity: 0.1,
               shadowOffset: {
@@ -248,6 +246,15 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
           <></>
         </Animated.View>
       </Animated.View>
+      <View
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingTop: 20,
+          backgroundColor: 'teal',
+        }}>
+        <Lives />
+      </View>
       <Animated.View
         style={[
           textStyle,
@@ -255,6 +262,7 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
             justifyContent: 'center',
             alignItems: 'center',
             paddingTop: 60,
+            zIndex: -2,
           },
         ]}>
         <Text style={styles.text}>YOU WON!</Text>

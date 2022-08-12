@@ -11,10 +11,12 @@ export interface Colors {
   darkerGray: string
   darkerDarkerGray: string
   theLastGray: string
+  darkerPrimary: string
 }
 
 export const LightColors: Colors = {
   primary: '#ee1a64',
+  darkerPrimary: '#D6175A',
   white: '#fff',
   light: '#f2f2f2',
   gray: '#6c6f78',
