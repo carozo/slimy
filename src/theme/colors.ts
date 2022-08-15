@@ -12,6 +12,7 @@ export interface Colors {
   darkerDarkerGray: string
   theLastGray: string
   darkerPrimary: string
+  deadSlimy: string
 }
 
 export const LightColors: Colors = {
@@ -25,7 +26,8 @@ export const LightColors: Colors = {
   theLastGray: '#393d45',
   black: '#20232a',
   dark: '#282c34',
-  slimy: '#AEEDB3cc'
+  slimy: '#AEEDB3cc',
+  deadSlimy: '#C2DBC4cc'
 };
 
 export const DarkColors: Colors = {

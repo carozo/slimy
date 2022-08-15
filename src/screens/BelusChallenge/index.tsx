@@ -1,10 +1,11 @@
 import { NavigationProp } from '@react-navigation/native'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useWindowDimensions, View, Text } from 'react-native'
 import Animated, {
   Easing,
   interpolate,
   interpolateColor,
+  runOnJS,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
@@ -12,7 +13,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import useColors from '../../theme/colors'
+import useColors, { LightColors } from '../../theme/colors'
 import { Slimy } from './Slimy'
 import { styles } from './styles'
 import { clamp, mix } from 'react-native-redash'
@@ -32,7 +33,7 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
   const newX = useSharedValue<number>((width - 150) / 2)
   const newY = useSharedValue<number>(GROUND)
   const hunger = useSharedValue<number>(0)
-  const xlimy = useSharedValue<number>(0)
+  const dead = useSharedValue<number>(0)
   const fruitScale = useSharedValue<number>(1)
   const fruitPositionX = useSharedValue<number>(100)
   const fruitPositionY = useSharedValue<number>(0)
@@ -46,16 +47,12 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
   const eyes = useSharedValue(1)
   const mouth = useSharedValue(0)
   const tapGesture = Gesture.Tap().onStart(() => {
-    if (!xlimy.value) {
+    if (!dead.value) {
       eyes.value = withSequence(
         withTiming(0, { duration: 200 }),
         withTiming(1, { duration: 300 }),
       )
     }
-  })
-  const longPressGesture = Gesture.LongPress().onStart(() => {
-    xlimy.value = withTiming(xlimy.value === 1 ? 0 : 1, { duration: 1000 })
-    eyes.value = withTiming(xlimy.value)
   })
   const panGesture = Gesture.Pan()
     .onStart(() => {
@@ -75,7 +72,7 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
       )
     })
     .onEnd(() => {
-      if (!xlimy.value) {
+      if (!dead.value) {
         eyes.value = withTiming(1, { duration: 700 })
       }
       newY.value = withTiming(GROUND, {
@@ -87,17 +84,11 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
         y: GROUND,
       }
     })
-  const composedGesture = Gesture.Simultaneous(
-    panGesture,
-    tapGesture,
-    longPressGesture,
-  )
+  const composedGesture = Gesture.Simultaneous(panGesture, tapGesture)
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: newX.value }, { translateY: newY.value }],
-    backgroundColor: interpolateColor(
-      xlimy.value,
-      [0, 1],
-      [colors.slimy, colors.primary],
+    backgroundColor: withTiming(
+      interpolateColor(dead.value, [0, 1], [colors.slimy, colors.deadSlimy]),
     ),
   }))
   const barStyle = useAnimatedStyle(() => {
@@ -112,22 +103,38 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
   })
   const bgStyle = useAnimatedStyle(() => {
     return {
-      backgroundColor: won.value ? '#7c9c88' : 'white',
+      backgroundColor:
+        won.value === 1
+          ? '#7c9c88'
+          : won.value === -1
+          ? LightColors.darkerDarkerGray
+          : 'white',
     }
   })
   const textStyle = useAnimatedStyle(() => {
     return { opacity: withTiming(won.value, { duration: 2000 }) }
   })
+  const textLostStyle = useAnimatedStyle(() => {
+    return { opacity: withTiming(-won.value, { duration: 2000 }) }
+  })
+
+  const l1 = useSharedValue<number>(1)
+  const l2 = useSharedValue<number>(1)
+  const l3 = useSharedValue<number>(1)
+  // const lives = new Array(3).fill(useSharedValue<number>(1))
+  const lives = [l1, l2, l3]
   const backgroundStyle = useAnimatedStyle(() => {
+    console.log(background.value)
     return {
       transform: [
         {
-          scale: mix(background.value, 0, 2.5),
+          scale: mix(Math.abs(background.value), 0, 2.5),
         },
       ],
       borderRadius: 300,
-      // width: withTiming(mix(background.value, 0, height), { duration: 700 }),
-      // height: withTiming(mix(background.value, 0, height), { duration: 700 }),
+      backgroundColor: lives[2].value
+        ? '#7c9c88'
+        : LightColors.darkerDarkerGray,
       width,
       overflow: 'hidden',
       height: width,
@@ -148,6 +155,7 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
   useEffect(() => {
     fruitPositionY.value = withTiming(height, { duration: 4000 })
   })
+
   useAnimatedReaction(
     () => {
       return fruitPositionY.value
@@ -188,23 +196,36 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
       } else if (fruitPositionY.value > newY.value + 30) {
         mouth.value = withTiming(0)
       }
-
+      //misses
       if (fruitPositionY.value === height) {
-        fruitScale.value = 1
-        fruitPositionY.value = -50
-        fruitPositionY.value = withTiming(height, { duration: 4000 })
-        fruitPositionX.value = Math.random() * (width - 150) + 75
+        console.log(lives)
+        const index = lives.findIndex(elem => elem.value)
+        if (index !== -1) {
+          lives[index].value = 0
+          if (index !== 2) {
+            fruitScale.value = 1
+            fruitPositionY.value = -50
+            fruitPositionY.value = withTiming(height, { duration: 4000 })
+            fruitPositionX.value = Math.random() * (width - 150) + 75
+          } else {
+            background.value = withTiming(1, { duration: 2000 }, () => {
+              won.value = -1
+              background.value = withTiming(0)
+              dead.value = 1
+            })
+          }
+        }
       }
     },
     [fruitPositionY.value],
   )
+
   return (
     <Animated.View style={[styles.flexible, bgStyle]}>
       <Animated.View
         style={[
           backgroundStyle,
           {
-            backgroundColor: '#7c9c88',
             zIndex: -1,
             position: 'absolute',
           },
@@ -214,8 +235,8 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
         <Slimy
           animatedStyle={animatedStyle}
           eyes={eyes}
-          xlimy={xlimy}
           mouth={mouth}
+          dead={dead}
         />
       </GestureDetector>
       <View style={[styles.floor, { width, backgroundColor: colors.light }]} />
@@ -248,26 +269,38 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
       </Animated.View>
       <View
         style={{
-          justifyContent: 'center',
-          alignItems: 'center',
+          justifyContent: 'flex-start',
           paddingTop: 20,
-          backgroundColor: 'teal',
+          flex: 1,
+          alignItems: 'center',
+          zIndex: -1,
         }}>
-        <Lives />
+        <Lives lives={lives} />
+        <Animated.View
+          style={[
+            textStyle,
+            {
+              paddingTop: 25,
+              position: 'absolute',
+              zIndex: 1,
+            },
+          ]}>
+          <Text style={styles.text}>YOU WON!</Text>
+          <Text style={styles.text2}>CONGRATULATIONS!</Text>
+        </Animated.View>
+        <Animated.View
+          style={[
+            textLostStyle,
+            {
+              paddingTop: 25,
+              position: 'absolute',
+              zIndex: 1,
+            },
+          ]}>
+          <Text style={styles.text}>Slimy died.</Text>
+          <Text style={styles.text2}>sad</Text>
+        </Animated.View>
       </View>
-      <Animated.View
-        style={[
-          textStyle,
-          {
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingTop: 60,
-            zIndex: -2,
-          },
-        ]}>
-        <Text style={styles.text}>YOU WON!</Text>
-        <Text style={styles.text2}>CONGRATULATIONS</Text>
-      </Animated.View>
     </Animated.View>
   )
 }

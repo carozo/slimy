@@ -1,4 +1,5 @@
-import { StyleSheet } from 'react-native'
+import {  StyleSheet } from 'react-native'
+
 
 export const styles = StyleSheet.create({
   flexible: {
@@ -26,17 +27,16 @@ export const styles = StyleSheet.create({
     height: 20
   },
   text: {
-    zIndex: -1,
+    zIndex: 1,
     textAlign: 'center',
     paddingTop: 25,
     fontSize: 60,
     color: 'white',
-    paddingHorizontal: 30,
     letterSpacing: 6,
     fontWeight: '200',
   },
   text2: {
-    zIndex: -1,
+    zIndex: 1,
     textAlign: 'center',
     paddingTop: 25,
     fontSize: 20,
