@@ -1,6 +1,6 @@
 import { NavigationProp } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { useWindowDimensions, View, Text } from 'react-native'
+import { useWindowDimensions, View, Text, Image } from 'react-native'
 import Animated, {
   Easing,
   interpolate,
@@ -19,6 +19,12 @@ import { styles } from './styles'
 import { clamp, mix } from 'react-native-redash'
 import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
 import { Lives } from './Lives'
+import Avocado from '../../assets/food/avocado.png'
+import Apple from '../../assets/food/apple.png'
+import Banana from '../../assets/food/banana.png'
+import Carrot from '../../assets/food/carrot.png'
+import Grape from '../../assets/food/grape.png'
+import Kiwi from '../../assets/food/kiwi.png'
 
 interface BelusChallengeProps {
   navigation: NavigationProp<any>
@@ -148,7 +154,6 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
       { translateX: fruitPositionX.value },
       { translateY: fruitPositionY.value },
     ],
-    backgroundColor: 'red',
     width: 50,
     height: 50,
   }))
@@ -212,6 +217,7 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
               won.value = -1
               background.value = withTiming(0)
               dead.value = 1
+              eyes.value = withTiming(0, { duration: 2000 })
             })
           }
         }
@@ -219,6 +225,8 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
     },
     [fruitPositionY.value],
   )
+
+  const fruitImage = [Avocado, Apple, Banana, Carrot, Grape, Kiwi]
 
   return (
     <Animated.View style={[styles.flexible, bgStyle]}>
@@ -230,7 +238,9 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
             position: 'absolute',
           },
         ]}></Animated.View>
-      <Animated.View style={fruitStyle} />
+      <Animated.View style={fruitStyle}>
+        <Image source={Avocado} style={{ height: 50, width: 50 }}></Image>
+      </Animated.View>
       <GestureDetector gesture={composedGesture}>
         <Slimy
           animatedStyle={animatedStyle}
