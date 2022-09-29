@@ -1,11 +1,10 @@
 import { NavigationProp } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useWindowDimensions, View, Text, Image } from 'react-native'
 import Animated, {
   Easing,
   interpolate,
   interpolateColor,
-  runOnJS,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
@@ -20,11 +19,6 @@ import { clamp, mix } from 'react-native-redash'
 import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
 import { Lives } from './Lives'
 import Avocado from '../../assets/food/avocado.png'
-import Apple from '../../assets/food/apple.png'
-import Banana from '../../assets/food/banana.png'
-import Carrot from '../../assets/food/carrot.png'
-import Grape from '../../assets/food/grape.png'
-import Kiwi from '../../assets/food/kiwi.png'
 
 interface BelusChallengeProps {
   navigation: NavigationProp<any>
@@ -117,7 +111,7 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
           : 'white',
     }
   })
-  const textStyle = useAnimatedStyle(() => {
+  const textContainerStyle = useAnimatedStyle(() => {
     return { opacity: withTiming(won.value, { duration: 2000 }) }
   })
   const textLostStyle = useAnimatedStyle(() => {
@@ -127,10 +121,8 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
   const l1 = useSharedValue<number>(1)
   const l2 = useSharedValue<number>(1)
   const l3 = useSharedValue<number>(1)
-  // const lives = new Array(3).fill(useSharedValue<number>(1))
   const lives = [l1, l2, l3]
   const backgroundStyle = useAnimatedStyle(() => {
-    console.log(background.value)
     return {
       transform: [
         {
@@ -149,7 +141,6 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
   const fruitStyle = useAnimatedStyle(() => ({
     zIndex: 100,
     transform: [
-      //TODO: ver como hacer bien el scale
       { scale: fruitScale.value },
       { translateX: fruitPositionX.value },
       { translateY: fruitPositionY.value },
@@ -203,7 +194,6 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
       }
       //misses
       if (fruitPositionY.value === height) {
-        console.log(lives)
         const index = lives.findIndex(elem => elem.value)
         if (index !== -1) {
           lives[index].value = 0
@@ -226,20 +216,11 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
     [fruitPositionY.value],
   )
 
-  const fruitImage = [Avocado, Apple, Banana, Carrot, Grape, Kiwi]
-
   return (
     <Animated.View style={[styles.flexible, bgStyle]}>
-      <Animated.View
-        style={[
-          backgroundStyle,
-          {
-            zIndex: -1,
-            position: 'absolute',
-          },
-        ]}></Animated.View>
+      <Animated.View style={[backgroundStyle, styles.background]} />
       <Animated.View style={fruitStyle}>
-        <Image source={Avocado} style={{ height: 50, width: 50 }}></Image>
+        <Image source={Avocado} style={styles.fruit} />
       </Animated.View>
       <GestureDetector gesture={composedGesture}>
         <Slimy
@@ -251,64 +232,23 @@ export const BelusChallenge: React.FC<BelusChallengeProps> = ({}) => {
       </GestureDetector>
       <View style={[styles.floor, { width, backgroundColor: colors.light }]} />
       <Animated.View
-        style={{
-          backgroundColor: colors.light,
-          borderRadius: 10,
-          height: 20,
-          marginHorizontal: 60,
-          alignItems: 'flex-start',
-          justifyContent: 'center',
-          paddingHorizontal: 5,
-          zIndex: -1,
-        }}>
-        <Animated.View
-          style={[
-            barStyle,
-            {
-              height: 13,
-              borderRadius: 10,
-              shadowOpacity: 0.1,
-              shadowOffset: {
-                height: 1,
-                width: 0,
-              },
-            },
-          ]}>
-          <></>
-        </Animated.View>
+        style={[
+          styles.barContainer,
+          {
+            backgroundColor: colors.light,
+          },
+        ]}>
+        <Animated.View style={[barStyle, styles.bar]} />
       </Animated.View>
-      <View
-        style={{
-          justifyContent: 'flex-start',
-          paddingTop: 20,
-          flex: 1,
-          alignItems: 'center',
-          zIndex: -1,
-        }}>
+      <View style={styles.livesContainer}>
         <Lives lives={lives} />
-        <Animated.View
-          style={[
-            textStyle,
-            {
-              paddingTop: 25,
-              position: 'absolute',
-              zIndex: 1,
-            },
-          ]}>
-          <Text style={styles.text}>YOU WON!</Text>
-          <Text style={styles.text2}>CONGRATULATIONS!</Text>
+        <Animated.View style={[textContainerStyle, styles.textContainer]}>
+          <Text style={styles.title}>YOU WON!</Text>
+          <Text style={styles.subtitle}>CONGRATULATIONS!</Text>
         </Animated.View>
-        <Animated.View
-          style={[
-            textLostStyle,
-            {
-              paddingTop: 25,
-              position: 'absolute',
-              zIndex: 1,
-            },
-          ]}>
-          <Text style={styles.text}>Slimy died.</Text>
-          <Text style={styles.text2}>sad</Text>
+        <Animated.View style={[textLostStyle, styles.textContainer]}>
+          <Text style={styles.title}>Slimy died.</Text>
+          <Text style={styles.subtitle}>sad</Text>
         </Animated.View>
       </View>
     </Animated.View>
