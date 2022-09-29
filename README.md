@@ -1,5 +1,5 @@
 # Slimy
-This is the animations training app for the React Native team at Xmartlabs.
+Learn React Native animations in a fun way! Contribute with your creative animations to show all the possibilities!
 
 # Overview
 The idea of this training is to introduce the basic concepts of React Native animations with the Reanimated 2 library in a fun way. 
