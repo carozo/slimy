@@ -48,6 +48,7 @@ CHALLENGE N: Last challenge!
 I encourage everyone to try to put into action the Reanimated concepts and create their own creative animation!
 
 My contribution:
+
 https://user-images.githubusercontent.com/80724668/187311169-f5965d2c-0594-4fee-bb03-7b571e7d7ad8.mov
 
 
