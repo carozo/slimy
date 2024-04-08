@@ -20,31 +20,37 @@ you'll need to create any animation you'd like, but the animations presented in 
 the challenges to learn and then be able to implement more logically complex animations that use those same core concepts. 
 
 CHALLENGE 1: Eyes wide open
+
 Key concepts: Shared values, interpolation
 
 https://user-images.githubusercontent.com/80724668/187310363-723a6ce0-512a-418c-8902-fcde84afd69b.mov
 
 CHALLENGE 2: Move it
+
 Key concepts: Gestures, gesture handler
 
 https://user-images.githubusercontent.com/80724668/187310476-d70ffc08-1752-478b-b28d-761209667654.mov
 
 CHALLENGE 3: Boundaries
+
 Key concepts: Clamping, animations (handlers)
 
 https://user-images.githubusercontent.com/80724668/187310576-f6cf041b-3428-4989-94b2-c34346e66945.mov
 
 CHALLENGE 4: XLimy
+
 Key concepts: SVG animations, animated props
 
 https://user-images.githubusercontent.com/80724668/187310792-e7a975b7-553e-46cf-aec5-9f3f54022610.mov
 
 CHALLENGE 5: Drop
+
 Key concepts: Communication between UI thread and JS thread
 
 https://user-images.githubusercontent.com/80724668/187310893-69f28b75-c18a-4944-a3b8-3d3629536152.mov
 
 CHALLENGE N: Last challenge!
+
 I encourage everyone to try to put into action the Reanimated concepts and create their own creative animation!
 
 My contribution:
