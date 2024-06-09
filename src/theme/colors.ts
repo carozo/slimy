@@ -1,4 +1,4 @@
-import { useColorScheme } from 'react-native';
+import { useColorScheme } from 'react-native'
 
 export interface Colors {
   primary: string
@@ -27,8 +27,8 @@ export const LightColors: Colors = {
   black: '#20232a',
   dark: '#282c34',
   slimy: '#AEEDB3cc',
-  deadSlimy: '#C2DBC4cc'
-};
+  deadSlimy: '#C2DBC4cc',
+}
 
 export const DarkColors: Colors = {
   ...LightColors,
@@ -36,13 +36,13 @@ export const DarkColors: Colors = {
   light: '#282c34',
   black: '#fff',
   dark: '#f2f2f2',
-};
+}
 
 const useColors = () => {
-  const scheme = useColorScheme();
-  const isDark = scheme === 'dark';
-  const colors = isDark ? DarkColors : LightColors;
-  return { colors, isDark };
-};
+  const scheme = useColorScheme()
+  const isDark = scheme === 'dark'
+  const colors = isDark ? DarkColors : LightColors
+  return { colors, isDark }
+}
 
-export default useColors;
+export default useColors
