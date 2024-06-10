@@ -28,43 +28,45 @@ npm start
 Then get [Expo Go](https://expo.dev/go) on your phone and scan the QR code that appears on the terminal.
 You can also run the app on a simulator.
 
+Go ahead into the "Get Started" screen, and jump into `src/components/Slimy.tsx` to complete the challenges.
+
 # Challenges
 
 We'll organize the key concepts of animations in five challenges. These challenges were created to try and cover most of the concepts
 you'll need to create any animation you'd like, but the animations presented in each one are not very complicated. The idea is to use
 the challenges to learn and then be able to implement more logically complex animations that use those same core concepts.
 
-CHALLENGE 1: Eyes wide open
+### CHALLENGE 1: Eyes wide open
 
-Key concepts: Shared values, interpolation
+Key concepts: Shared values, interpolation.
 
 https://user-images.githubusercontent.com/80724668/187310363-723a6ce0-512a-418c-8902-fcde84afd69b.mov
 
-CHALLENGE 2: Move it
+### CHALLENGE 2: Move it
 
 Key concepts: Gestures, gesture handler
 
 https://user-images.githubusercontent.com/80724668/187310476-d70ffc08-1752-478b-b28d-761209667654.mov
 
-CHALLENGE 3: Boundaries
+### CHALLENGE 3: Boundaries
 
 Key concepts: Clamping, animations (handlers)
 
 https://user-images.githubusercontent.com/80724668/187310576-f6cf041b-3428-4989-94b2-c34346e66945.mov
 
-CHALLENGE 4: XLimy
+### CHALLENGE 4: XLimy
 
 Key concepts: SVG animations, animated props
 
 https://user-images.githubusercontent.com/80724668/187310792-e7a975b7-553e-46cf-aec5-9f3f54022610.mov
 
-CHALLENGE 5: Drop
+### CHALLENGE 5: Drop
 
 Key concepts: Communication between UI thread and JS thread
 
 https://user-images.githubusercontent.com/80724668/187310893-69f28b75-c18a-4944-a3b8-3d3629536152.mov
 
-CHALLENGE N: Last challenge!
+### CHALLENGE N: Last challenge!
 
 I encourage everyone to try to put into action the Reanimated concepts and create their own creative animation!
 

@@ -2,11 +2,14 @@ import React from 'react'
 import { ScrollView } from 'react-native'
 import { router, Stack } from 'expo-router'
 import { MenuItem } from '../components/Home/MenuItem'
+import { MenuSection } from '../components/Home/MenuSection'
 
 const Home = () => {
   return (
     <ScrollView>
       <Stack.Screen options={{ title: 'Home' }} />
+      <MenuItem title="Get Started" onPress={() => router.navigate('start')} />
+      <MenuSection title="Solutions" />
       <MenuItem
         title="First challenge"
         onPress={() => router.navigate('solutions/first')}
