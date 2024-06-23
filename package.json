@@ -7,7 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "npm run lint:ts && npm run lint:js",
+    "lint:js": "expo lint",
+    "lint:ts": "tsc"
   },
   "jest": {
     "preset": "jest-expo"
