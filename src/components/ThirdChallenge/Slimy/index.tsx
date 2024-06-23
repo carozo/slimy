@@ -1,7 +1,7 @@
 import React from 'react'
 import { useWindowDimensions } from 'react-native'
 import Animated, { SharedValue, StyleProps } from 'react-native-reanimated'
-import useColors from '../../../theme/colors'
+import { Colors } from '../../../theme/colors'
 import { styles } from '../styles'
 import { Eye } from './Eye'
 
@@ -12,7 +12,6 @@ interface SlimyProps {
 
 export const Slimy: React.FC<SlimyProps> = ({ animatedStyle, eyes }) => {
   const { width } = useWindowDimensions()
-  const { colors } = useColors()
 
   return (
     <Animated.View
@@ -20,7 +19,7 @@ export const Slimy: React.FC<SlimyProps> = ({ animatedStyle, eyes }) => {
         styles.slimy,
         {
           left: (width - 150) / 2,
-          backgroundColor: colors.slimy,
+          backgroundColor: Colors.slimy,
         },
         animatedStyle,
       ]}>

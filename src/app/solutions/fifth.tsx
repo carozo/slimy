@@ -1,6 +1,6 @@
 import { NavigationProp } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { useWindowDimensions, View } from 'react-native'
+import { Text, useWindowDimensions, View } from 'react-native'
 import {
   Easing,
   interpolateColor,
@@ -11,12 +11,11 @@ import {
   withTiming,
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import useColors from '../../theme/colors'
+import { Colors } from '../../theme/colors'
 import { Slimy } from '../../components/FifthChallenge/Slimy'
 import { styles } from '../../components/FifthChallenge/styles'
 import { clamp } from 'react-native-redash'
 import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
-import { Text } from 'react-native'
 import { Stack } from 'expo-router'
 
 interface FifthChallengeProps {
@@ -24,7 +23,6 @@ interface FifthChallengeProps {
 }
 
 const FifthChallenge: React.FC<FifthChallengeProps> = () => {
-  const { colors } = useColors()
   const { width } = useWindowDimensions()
   const [counter, setCounter] = useState<number>(0)
   const { LEFT_BOUND, LOWER_BOUND, RIGHT_BOUND, UPPER_BOUND, GROUND } =
@@ -96,18 +94,18 @@ const FifthChallenge: React.FC<FifthChallengeProps> = () => {
     backgroundColor: interpolateColor(
       xlimy.value,
       [0, 1],
-      [colors.slimy, colors.primary],
+      [Colors.slimy, Colors.primary],
     ),
   }))
   const colorArray = [
-    colors.white,
-    colors.light,
-    colors.gray,
-    colors.darkerGray,
-    colors.darkerDarkerGray,
-    colors.theLastGray,
-    colors.dark,
-    colors.black,
+    Colors.white,
+    Colors.light,
+    Colors.gray,
+    Colors.darkerGray,
+    Colors.darkerDarkerGray,
+    Colors.theLastGray,
+    Colors.dark,
+    Colors.black,
   ]
   return (
     <View
@@ -119,11 +117,11 @@ const FifthChallenge: React.FC<FifthChallengeProps> = () => {
       <Text
         style={[
           styles.text,
-          { color: counter % 8 > 4 ? colors.white : colors.black },
+          { color: counter % 8 > 4 ? Colors.white : Colors.black },
         ]}>
         Number of times Slimy has been dropped: {counter}
       </Text>
-      <View style={[styles.floor, { width, backgroundColor: colors.light }]} />
+      <View style={[styles.floor, { width, backgroundColor: Colors.light }]} />
     </View>
   )
 }

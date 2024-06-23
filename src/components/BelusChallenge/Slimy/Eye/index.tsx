@@ -4,7 +4,7 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated'
-import useColors from '../../../../theme/colors'
+import { Colors } from '../../../../theme/colors'
 import { styles } from '../../styles'
 
 interface EyeProps {
@@ -14,7 +14,6 @@ interface EyeProps {
 }
 
 export const Eye: React.FC<EyeProps> = ({ eyes, left, right }) => {
-  const { colors } = useColors()
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: interpolate(eyes.value, [0, 1], [10, 0]) }],
     height: interpolate(eyes.value, [0, 1], [2, 20]),
@@ -29,9 +28,9 @@ export const Eye: React.FC<EyeProps> = ({ eyes, left, right }) => {
         {
           left,
           right,
-          backgroundColor: colors.black,
-          borderBottomColor: colors.black,
-          borderEndColor: colors.white,
+          backgroundColor: Colors.black,
+          borderBottomColor: Colors.black,
+          borderEndColor: Colors.white,
         },
         animatedStyle,
       ]}
