@@ -9,7 +9,7 @@ import {
   withTiming,
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import useColors from '../../theme/colors'
+import { Colors } from '../../theme/colors'
 import { Slimy } from '../../components/ThirdChallenge/Slimy'
 import { styles } from '../../components/ThirdChallenge/styles'
 import { clamp } from 'react-native-redash'
@@ -21,7 +21,6 @@ interface ThirdChallengeProps {
 }
 
 const ThirdChallenge: React.FC<ThirdChallengeProps> = () => {
-  const { colors } = useColors()
   const { width } = useWindowDimensions()
   const { LEFT_BOUND, LOWER_BOUND, RIGHT_BOUND, UPPER_BOUND, GROUND } =
     useGeneralDimensions()
@@ -71,12 +70,12 @@ const ThirdChallenge: React.FC<ThirdChallengeProps> = () => {
     transform: [{ translateX: newX.value }, { translateY: newY.value }],
   }))
   return (
-    <View style={[styles.flexible, { backgroundColor: colors.white }]}>
+    <View style={[styles.flexible, { backgroundColor: Colors.white }]}>
       <Stack.Screen options={{ title: 'Third Challenge' }} />
       <GestureDetector gesture={composedGesture}>
         <Slimy animatedStyle={animatedStyle} eyes={eyes} />
       </GestureDetector>
-      <View style={[styles.floor, { width, backgroundColor: colors.light }]} />
+      <View style={[styles.floor, { width, backgroundColor: Colors.light }]} />
     </View>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Pressable, Text, useWindowDimensions } from 'react-native'
-import useColors from '../../../theme/colors'
+import { Colors } from '../../../theme/colors'
 import { styles } from '../styles'
 
 interface MenuItemProps {
@@ -10,10 +10,9 @@ interface MenuItemProps {
 
 export const MenuItem: React.FC<MenuItemProps> = ({ title, onPress }) => {
   const { width } = useWindowDimensions()
-  const { colors } = useColors()
   return (
     <Pressable onPress={onPress} style={[styles.menuItem, { width }]}>
-      <Text style={{ color: colors.dark }}>{title}</Text>
+      <Text style={{ color: Colors.dark }}>{title}</Text>
     </Pressable>
   )
 }

@@ -1,6 +1,6 @@
 import { NavigationProp } from '@react-navigation/native'
 import React, { useEffect } from 'react'
-import { useWindowDimensions, View, Text, Image } from 'react-native'
+import { Image, Text, useWindowDimensions, View } from 'react-native'
 import Animated, {
   Easing,
   interpolate,
@@ -12,7 +12,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import useColors, { LightColors } from '../../theme/colors'
+import { Colors } from '../../theme/colors'
 import { Slimy } from '../../components/BelusChallenge/Slimy'
 import { styles } from '../../components/BelusChallenge/styles'
 import { clamp, mix } from 'react-native-redash'
@@ -28,7 +28,6 @@ interface BelusChallengeProps {
 const BelusChallenge: React.FC<BelusChallengeProps> = () => {
   const won = useSharedValue<number>(0)
   const background = useSharedValue<number>(0)
-  const { colors } = useColors()
   const { width, height } = useWindowDimensions()
   const { LOWER_BOUND, UPPER_BOUND, GROUND } = useGeneralDimensions()
   const newX = useSharedValue<number>((width - 150) / 2)
@@ -89,7 +88,7 @@ const BelusChallenge: React.FC<BelusChallengeProps> = () => {
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: newX.value }, { translateY: newY.value }],
     backgroundColor: withTiming(
-      interpolateColor(dead.value, [0, 1], [colors.slimy, colors.deadSlimy]),
+      interpolateColor(dead.value, [0, 1], [Colors.slimy, Colors.deadSlimy]),
     ),
   }))
   const barStyle = useAnimatedStyle(() => {
@@ -98,7 +97,7 @@ const BelusChallenge: React.FC<BelusChallengeProps> = () => {
       backgroundColor: interpolateColor(
         hunger.value,
         [0, 10],
-        [colors.primary, colors.slimy],
+        [Colors.primary, Colors.slimy],
       ),
     }
   })
@@ -108,7 +107,7 @@ const BelusChallenge: React.FC<BelusChallengeProps> = () => {
         won.value === 1
           ? '#7c9c88'
           : won.value === -1
-            ? LightColors.darkerDarkerGray
+            ? Colors.darkerDarkerGray
             : 'white',
     }
   })
@@ -131,9 +130,7 @@ const BelusChallenge: React.FC<BelusChallengeProps> = () => {
         },
       ],
       borderRadius: 300,
-      backgroundColor: lives[2].value
-        ? '#7c9c88'
-        : LightColors.darkerDarkerGray,
+      backgroundColor: lives[2].value ? '#7c9c88' : Colors.darkerDarkerGray,
       width,
       overflow: 'hidden',
       height: width,
@@ -232,12 +229,12 @@ const BelusChallenge: React.FC<BelusChallengeProps> = () => {
           dead={dead}
         />
       </GestureDetector>
-      <View style={[styles.floor, { width, backgroundColor: colors.light }]} />
+      <View style={[styles.floor, { width, backgroundColor: Colors.light }]} />
       <Animated.View
         style={[
           styles.barContainer,
           {
-            backgroundColor: colors.light,
+            backgroundColor: Colors.light,
           },
         ]}>
         <Animated.View style={[barStyle, styles.bar]} />

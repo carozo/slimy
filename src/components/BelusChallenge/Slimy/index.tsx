@@ -1,12 +1,12 @@
 import React from 'react'
 import { View } from 'react-native'
 import Animated, {
-  StyleProps,
   SharedValue,
+  StyleProps,
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated'
-import useColors from '../../../theme/colors'
+import { Colors } from '../../../theme/colors'
 import { styles } from '../styles'
 import { Eye } from './Eye'
 import { Mouth } from './Mouth'
@@ -24,7 +24,6 @@ export const Slimy: React.FC<SlimyProps> = ({
   mouth,
   dead,
 }) => {
-  const { colors } = useColors()
   const tearStyle = useAnimatedStyle(() => ({
     transform: [{ scale: withTiming(dead.value) }, { rotate: '45deg' }],
   }))
@@ -34,7 +33,7 @@ export const Slimy: React.FC<SlimyProps> = ({
       style={[
         styles.slimy,
         {
-          backgroundColor: colors.slimy,
+          backgroundColor: Colors.slimy,
         },
         animatedStyle,
       ]}>

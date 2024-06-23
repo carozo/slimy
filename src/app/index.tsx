@@ -1,6 +1,6 @@
 import React from 'react'
 import { ScrollView } from 'react-native'
-import { Stack, router } from 'expo-router'
+import { router, Stack } from 'expo-router'
 import { MenuItem } from '../components/Home/MenuItem'
 
 const Home = () => {

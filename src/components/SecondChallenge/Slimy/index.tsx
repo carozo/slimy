@@ -4,7 +4,7 @@ import Animated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated'
-import useColors from '../../../theme/colors'
+import { Colors } from '../../../theme/colors'
 import { styles } from '../styles'
 import { Eye } from './Eye'
 
@@ -15,7 +15,6 @@ interface SlimyProps {
 
 export const Slimy: React.FC<SlimyProps> = ({ eyes, translation }) => {
   const { width } = useWindowDimensions()
-  const { colors } = useColors()
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [
       { translateX: translation.value.x },
@@ -29,7 +28,7 @@ export const Slimy: React.FC<SlimyProps> = ({ eyes, translation }) => {
         styles.slimy,
         {
           left: (width - 150) / 2,
-          backgroundColor: colors.slimy,
+          backgroundColor: Colors.slimy,
         },
         animatedStyle,
       ]}>

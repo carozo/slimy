@@ -7,7 +7,7 @@ import {
   withTiming,
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import useColors from '../../theme/colors'
+import { Colors } from '../../theme/colors'
 import { Slimy } from '../../components/SecondChallenge/Slimy'
 import { styles } from '../../components/SecondChallenge/styles'
 import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
@@ -18,7 +18,6 @@ interface SecondChallengeProps {
 }
 
 const SecondChallenge: React.FC<SecondChallengeProps> = () => {
-  const { colors } = useColors()
   const { width } = useWindowDimensions()
   const { GROUND } = useGeneralDimensions()
   const translation = useSharedValue<{ x: number; y: number }>({
@@ -56,12 +55,12 @@ const SecondChallenge: React.FC<SecondChallengeProps> = () => {
     })
   const composedGesture = Gesture.Simultaneous(panGesture, tapGesture)
   return (
-    <View style={[styles.flexible, { backgroundColor: colors.white }]}>
+    <View style={[styles.flexible, { backgroundColor: Colors.white }]}>
       <Stack.Screen options={{ title: 'Second Challenge' }} />
       <GestureDetector gesture={composedGesture}>
         <Slimy eyes={eyes} translation={translation} />
       </GestureDetector>
-      <View style={[styles.floor, { width, backgroundColor: colors.light }]} />
+      <View style={[styles.floor, { width, backgroundColor: Colors.light }]} />
     </View>
   )
 }

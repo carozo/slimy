@@ -3,21 +3,19 @@ import { Stack } from 'expo-router'
 import 'react-native-reanimated'
 
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import useColors from '../theme/colors'
+import { Colors } from '../theme/colors'
 
 export default function RootLayout() {
-  const { colors, isDark } = useColors()
-
   const theme: Theme = {
     colors: {
-      background: colors.light,
-      card: colors.white,
-      border: colors.light,
-      notification: colors.primary,
-      primary: colors.primary,
-      text: colors.black,
+      background: Colors.light,
+      card: Colors.white,
+      border: Colors.light,
+      notification: Colors.primary,
+      primary: Colors.primary,
+      text: Colors.black,
     },
-    dark: isDark,
+    dark: false,
   }
   return (
     <GestureHandlerRootView>
