@@ -6,7 +6,7 @@ import { Scenery } from '../components/Scenery'
 const YourSlimyScreen = () => {
   return (
     <Scenery>
-      <Stack.Screen options={{ title: 'Your Slimy' }} />
+      <Stack.Screen options={{ title: 'My Slimy' }} />
       <Slimy />
     </Scenery>
   )

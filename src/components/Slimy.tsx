@@ -1,7 +1,8 @@
 import React from 'react'
 import { useWindowDimensions, View, StyleSheet } from 'react-native'
-import { SLIMY_SIDE } from '../hooks/useGeneralDimensions'
 import { Colors } from '../theme/colors'
+
+const SLIMY_SIDE = 150
 
 export const Slimy = () => {
   const { width } = useWindowDimensions()

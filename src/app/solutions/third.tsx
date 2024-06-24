@@ -10,10 +10,10 @@ import {
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import { Colors } from '../../theme/colors'
-import { Slimy } from '../../components/ThirdChallenge/Slimy'
-import { styles } from '../../components/ThirdChallenge/styles'
+import { Slimy } from '../../components/solutions/ThirdChallenge/Slimy'
+import { styles } from '../../components/solutions/ThirdChallenge/styles'
 import { clamp } from 'react-native-redash'
-import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
+import { useGeneralDimensions } from '../../components/solutions/hooks/useGeneralDimensions'
 import { Stack } from 'expo-router'
 
 interface ThirdChallengeProps {

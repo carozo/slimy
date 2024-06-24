@@ -28,7 +28,7 @@ npm start
 Then get [Expo Go](https://expo.dev/go) on your phone and scan the QR code that appears on the terminal.
 You can also run the app on a simulator.
 
-Go ahead into the "Get Started" screen, and jump into `src/components/Slimy.tsx` to complete the challenges.
+Go into the "My Slimy" screen, and jump into `src/components/Slimy.tsx` to complete the challenges.
 
 # Challenges
 

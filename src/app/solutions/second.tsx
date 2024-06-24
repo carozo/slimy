@@ -8,9 +8,9 @@ import {
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import { Colors } from '../../theme/colors'
-import { Slimy } from '../../components/SecondChallenge/Slimy'
-import { styles } from '../../components/SecondChallenge/styles'
-import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
+import { Slimy } from '../../components/solutions/SecondChallenge/Slimy'
+import { styles } from '../../components/solutions/SecondChallenge/styles'
+import { useGeneralDimensions } from '../../components/solutions/hooks/useGeneralDimensions'
 import { Stack } from 'expo-router'
 
 interface SecondChallengeProps {

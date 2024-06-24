@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <ScrollView>
       <Stack.Screen options={{ title: 'Home' }} />
-      <MenuItem title="Your Slimy" onPress={() => router.navigate('slimy')} />
+      <MenuItem title="My Slimy" onPress={() => router.navigate('slimy')} />
       <MenuSection title="Solutions" />
       <MenuItem
         title="First challenge"
