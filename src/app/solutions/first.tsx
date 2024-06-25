@@ -3,8 +3,8 @@ import React from 'react'
 import { Button, useWindowDimensions, View } from 'react-native'
 import { useSharedValue, withTiming } from 'react-native-reanimated'
 import { Colors } from '../../theme/colors'
-import { Slimy } from '../../components/FirstChallenge/Slimy'
-import { styles } from '../../components/FirstChallenge/styles'
+import { Slimy } from '../../components/solutions/FirstChallenge/Slimy'
+import { styles } from '../../components/solutions/FirstChallenge/styles'
 import { Stack } from 'expo-router'
 
 interface FirstChallengeProps {

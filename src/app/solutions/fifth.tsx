@@ -12,10 +12,10 @@ import {
 } from 'react-native-reanimated'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import { Colors } from '../../theme/colors'
-import { Slimy } from '../../components/FifthChallenge/Slimy'
-import { styles } from '../../components/FifthChallenge/styles'
+import { Slimy } from '../../components/solutions/FifthChallenge/Slimy'
+import { styles } from '../../components/solutions/FifthChallenge/styles'
 import { clamp } from 'react-native-redash'
-import { useGeneralDimensions } from '../../hooks/useGeneralDimensions'
+import { useGeneralDimensions } from '../../components/solutions/hooks/useGeneralDimensions'
 import { Stack } from 'expo-router'
 
 interface FifthChallengeProps {
