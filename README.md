@@ -48,6 +48,10 @@ Key concepts: Gestures, gesture handler
 
 https://user-images.githubusercontent.com/80724668/187310476-d70ffc08-1752-478b-b28d-761209667654.mov
 
+Optional:
+
+https://github.com/carozo/slimy/assets/80724668/b5f49b6a-5ab9-4b4e-9115-dc048553ef34
+
 ### CHALLENGE 3: Boundaries
 
 Key concepts: Clamping, animations (handlers)
