@@ -19,14 +19,15 @@ First of all, I recommend you take a look at [how the path of an SVG is construc
 
 ## Challenge
 
-This is the fourth challenge. We’re going to add a new gesture (longPress), that will turn Slimy into XLimy.
+This is the fourth challenge. We’re going to add a new gesture (long press), that will turn Slimy into XLimy.
 
 <video controls autoplay loop style={{maxHeight: 640, minHeight: 200}}>
 
   <source src="https://user-images.githubusercontent.com/80724668/187310792-e7a975b7-553e-46cf-aec5-9f3f54022610.mov" />
 </video>
 
-💡 TIPS && HINTS:
+<details>
+<summary>💡 TIPS && HINTS:</summary>
 
 - We'll need to animate an SVG. Here is the final arrow:
 
@@ -42,3 +43,4 @@ This is the fourth challenge. We’re going to add a new gesture (longPress), th
 ❔ Questions to consider:
 
 - For the SVG you'll have to consider two “states”. One of them is the final arrow, but what would the first one be?
+</details>

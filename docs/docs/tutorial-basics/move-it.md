@@ -25,7 +25,8 @@ But there are some new things to consider:
   <source src="https://user-images.githubusercontent.com/80724668/187310476-d70ffc08-1752-478b-b28d-761209667654.mov" />
 </video>
 
-💡 TIPS && HINTS:
+<details>
+<summary>💡 TIPS && HINTS:</summary>
 
 - You’ll need to use a gesture handler.
 - You’ll need to combine two gestures, one for the dragging and one for the tapping.
@@ -34,3 +35,4 @@ But there are some new things to consider:
 ❔ Questions to consider:
 
 - Is it possible to try to make the timing of the eyes more realistic? How?
+</details>

@@ -10,9 +10,7 @@ sidebar_position: 5
 
 ### Threads
 
-Understanding threads:
-
-[Understanding Threads](https://brooklinmyers.medium.com/react-native-understanding-threads-e026c7d62bb2)
+- [Understanding React Native threads](https://brooklinmyers.medium.com/react-native-understanding-threads-e026c7d62bb2)
 
 But what if I want to run certain processes in one thread, but call them from the other? For example, what if we wanted to set a React State from a gesture handler? Well, take a look at the docs for these two functions:
 
@@ -29,7 +27,8 @@ In this challenge we’ll count how many times Slimy has been dropped.
   <source src="https://user-images.githubusercontent.com/80724668/187310893-69f28b75-c18a-4944-a3b8-3d3629536152.mov" />
 </video>
 
-💡 TIPS && HINTS:
+<details>
+<summary>💡 TIPS && HINTS:</summary>
 
 - Probably we would want to save this in a state.
 - You don’t have to change the background color. I did it just to reinforce the concept.
@@ -37,3 +36,4 @@ In this challenge we’ll count how many times Slimy has been dropped.
 ❔ Questions to consider:
 
 - How can you be sure that the counter will increment _after_ the animation ended?
+</details>

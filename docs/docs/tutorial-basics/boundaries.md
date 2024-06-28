@@ -21,8 +21,11 @@ sidebar_position: 3
   <source src="https://user-images.githubusercontent.com/80724668/187310576-f6cf041b-3428-4989-94b2-c34346e66945.mov" />
 </video>
 
-💡 TIPS && HINTS:
+<details>
+<summary>💡 TIPS && HINTS:</summary>
 
 - You already have the gesture handler you need for this, consider using callbacks.
 - The library provides us a [clamp](https://docs.swmansion.com/react-native-reanimated/docs/utilities/clamp) function to bound the movement.
-- You can explore the withTiming config for the bouncing.
+- You can explore the `withTiming` config for the bouncing.
+
+</details>

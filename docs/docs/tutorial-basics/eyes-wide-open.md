@@ -22,13 +22,16 @@ As a first challenge, we’ll make Slimy open its eyes!
   <source src="https://user-images.githubusercontent.com/80724668/187310363-723a6ce0-512a-418c-8902-fcde84afd69b.mov" />
 </video>
 
-💡 TIPS && HINTS:
+<details>
+<summary>💡 TIPS && HINTS:</summary>
 
 - The eyes are just a circular view (i added the shine for the sake of looks, but it is not really necessary), and you’ll need to _animate its style._
 - Remember that anything that can be normally found on a stylesheet can be animated.
-- You will have to consider using a sharedValue for the “state” of the eyes. Remember that, in animations, a shared value is similar to a useState.
+- You will have to consider using a `sharedValue` for the “state” of the eyes. Remember that, in animations, a shared value is similar to a `useState`.
 - You will need to use one of the animation helpers (e.g with Spring).
 
 ❔ Questions to consider:
 
 - How can you animate the style of a view to look like it is an eye opening or closing?
+
+</details>
