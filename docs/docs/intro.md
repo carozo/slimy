@@ -20,6 +20,10 @@ You can customize it however you want, color, border radius, whatever. It’ll b
 
 We'll use the basic concepts of animations to bring Slimy to life.
 
+### Reanimated
+
+[Reanimated](https://docs.swmansion.com/react-native-reanimated/) is a powerful animation library, designed to create and run animations. Since JavaScript is single threaded, running animations on the JS thread can result in frame drops due to other app logic that might be running at the same time. Reanimated mitigates this by running the animations on the UI thread.
+
 ## Getting Started
 
 Get started by getting your own Slimy to build on.
